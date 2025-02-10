@@ -1,9 +1,14 @@
 import TodoDetails from "@/app/_components/TodoDetails";
-import { TodoProps } from "@/app/types/todoType";
 import { notFound } from "next/navigation";
 import React from "react";
 
-const page = async ({ params }: TodoProps) => {
+interface TodoPageProps {
+  params: {
+    id: string;
+  };
+}
+
+const page = async ({ params }: TodoPageProps) => {
   try {
     const response = await fetch(
       `https://jsonplaceholder.typicode.com/todos/${params?.id}`

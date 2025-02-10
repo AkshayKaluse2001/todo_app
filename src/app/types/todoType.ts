@@ -47,12 +47,6 @@ export interface TodoState {
   error: string | null;
 }
 
-export interface TodoProps {
-  params: {
-    id: string;
-  };
-}
-
 // type PartialTodo = Partial<Todo>;
 
 // type RequiredTodo = Required<PartialTodo>;
