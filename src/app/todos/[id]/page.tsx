@@ -3,12 +3,10 @@ import { notFound } from "next/navigation";
 import React from "react";
 
 interface TodoPageProps {
-  params: {
-    id: string;
-  };
+  params: { id: string };
 }
 
-const Page = async ({ params }: TodoPageProps) => {
+export default async function Page({ params }: TodoPageProps) {
   try {
     const response = await fetch(
       `https://jsonplaceholder.typicode.com/todos/${params.id}`
@@ -27,9 +25,8 @@ const Page = async ({ params }: TodoPageProps) => {
     );
   } catch (error) {
     if (error instanceof Error) {
+      console.log(error);
       return notFound();
     }
   }
-};
-
-export default Page;
+}

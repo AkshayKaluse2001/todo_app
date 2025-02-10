@@ -3,16 +3,14 @@
 import BackdropLoader from "@/app/_components/backdrop/Backdrop";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { use } from "react"; // Import use() to unwrap params
 
-export default function TodoModal({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+interface TodoModalProps {
+  params: { id: string };
+}
+
+export default function TodoModal({ params }: TodoModalProps) {
   const router = useRouter();
-  const unwrappedParams = use(params);
-  const { id } = unwrappedParams;
+  const { id } = params;
 
   const [todo, setTodo] = useState<{
     id: number;
@@ -31,6 +29,11 @@ export default function TodoModal({
         const response = await fetch(
           `https://jsonplaceholder.typicode.com/todos/${id}`
         );
+
+        if (!response.ok) {
+          throw new Error(`Error ${response.status}: ${response.statusText}`);
+        }
+
         const data = await response.json();
         setTodo(data);
       } catch (error) {
@@ -40,8 +43,10 @@ export default function TodoModal({
       }
     };
 
-    fetchTodo();
-  }, [id]);
+    if (id) {
+      fetchTodo();
+    }
+  }, [id]); // ✅ Ensure `id` is correctly used
 
   if (loading) {
     return <BackdropLoader />;
