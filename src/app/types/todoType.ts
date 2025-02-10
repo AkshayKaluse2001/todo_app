@@ -46,9 +46,3 @@ export interface TodoState {
   loading: boolean;
   error: string | null;
 }
-
-// type PartialTodo = Partial<Todo>;
-
-// type RequiredTodo = Required<PartialTodo>;
-
-// type ReadOnlyTodo = Readonly<Todo>;
