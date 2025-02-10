@@ -8,10 +8,10 @@ interface TodoPageProps {
   };
 }
 
-const page = async ({ params }: TodoPageProps) => {
+const Page = async ({ params }: TodoPageProps) => {
   try {
     const response = await fetch(
-      `https://jsonplaceholder.typicode.com/todos/${params?.id}`
+      `https://jsonplaceholder.typicode.com/todos/${params.id}`
     );
 
     if (!response.ok) {
@@ -32,4 +32,4 @@ const page = async ({ params }: TodoPageProps) => {
   }
 };
 
-export default page;
+export default Page;
