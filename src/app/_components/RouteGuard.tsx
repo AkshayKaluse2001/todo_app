@@ -1,23 +1,22 @@
 "use client";
+
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { RootState, useAppSelector } from "../store/index.slice";
 
 export const RouteGuard = ({ children }: { children: React.ReactNode }) => {
   const { user } = useAppSelector((state: RootState) => state.auth);
   const router = useRouter();
+  const pathname = usePathname(); // Next.js hook to get the current route
 
   const publicRoutes = ["/login", "/signup"];
-  const currentPath = window.location.pathname;
-  const isPublicRoute = publicRoutes.includes(currentPath);
+  const isPublicRoute = publicRoutes.includes(pathname);
 
   useEffect(() => {
-    // ***** Redirect to login page if user is not logged in and tries to access private routes like dashboard or profile******* //
     if (!user && !isPublicRoute) {
       router.replace("/login");
     }
 
-    // ***** Redirect to home page if user is logged in and tries to access public routes like login or signup******* //
     if (user && isPublicRoute) {
       router.replace("/");
     }
